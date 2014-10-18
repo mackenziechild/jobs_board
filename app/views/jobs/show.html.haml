@@ -1,7 +1,11 @@
-%h1= @job.title
-%p= @job.description
-%p= @job.company
+#jobs
+	.job
+		%h2= @job.title
+		%p= @job.description
+		%p= @job.company
+		%button.btn.btn-default= link_to "Apply for Job", @job.url
 
-= link_to "Home", root_path
-= link_to "Edit", edit_job_path(@job)
-= link_to "Delete", job_path(@job), method: :delete, data: { confirm: "Are you sure?" }
+#links
+	= link_to "Back", root_path, class: "btn btn-sm btn-default"
+	= link_to "Edit", edit_job_path(@job), class: "btn btn-sm btn-default"
+	= link_to "Delete", job_path(@job), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-sm btn-default"

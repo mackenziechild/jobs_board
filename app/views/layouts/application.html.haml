@@ -7,6 +7,14 @@
 	= csrf_meta_tags
 
 %body
-	- Category.all.each do |category|
-		= link_to category.name, jobs_path(category: category.name)
-	= yield
+	%nav.navbar.navbar-default
+		.container
+			.navbar-brand Rails Jobs
+			%ul.nav.navbar-nav
+				%li= link_to "All Jobs", root_path
+				- Category.all.each do |category|
+					%li= link_to category.name, jobs_path(category: category.name)
+			= link_to "New Job", new_job_path, class: "navbar-text navbar-right navbar-link"
+	.container
+		.col-md-6.col-md-offset-3
+			= yield
