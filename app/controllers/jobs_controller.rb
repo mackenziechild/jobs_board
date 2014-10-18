@@ -2,7 +2,12 @@ class JobsController < ApplicationController
 	before_action :find_job, only: [:show, :edit, :update, :destroy]
 
 	def index
-		@jobs = Job.all.order("created_at DESC")
+		if params[:category].blank?
+			@jobs = Job.all.order("created_at DESC")
+		else
+			@category_id = Category.find_by(name: params[:category]).id
+			@jobs = Job.where(category_id: @category_id).order("created_at DESC")
+		end
 	end
 
 	def show
@@ -41,7 +46,7 @@ class JobsController < ApplicationController
 	private
 
 	def jobs_params
-		params.require(:job).permit(:title, :description, :company, :url)
+		params.require(:job).permit(:title, :description, :company, :url, :category_id)
 	end
 
 	def find_job
